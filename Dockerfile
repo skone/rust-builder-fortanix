@@ -47,7 +47,6 @@ WORKDIR /source
 RUN mkdir /source/target
 VOLUME ["/source/target"]
 
-RUN mkdir /root/.cargo
 VOLUME ["/root/.cargo"]
 
 ENTRYPOINT ["cargo"]
