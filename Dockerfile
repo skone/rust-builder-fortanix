@@ -27,6 +27,17 @@ RUN curl https://www.openssl.org/source/openssl-$SSL_VERSION.tar.gz -O && \
 #    OPENSSL_INCLUDE_DIR=/usr/local/ssl/include \
 #    OPENSSL_STATIC=1
 
+#Set up volumes for source code
+RUN mkdir /source
+VOLUME ["/source"]
+WORKDIR /source
+
+RUN mkdir /source/target
+VOLUME ["/source/target"]
+
+RUN mkdir /root/.cargo
+VOLUME ["/root/.cargo"]
+
 # install toolchain
 RUN curl https://sh.rustup.rs -sSf | \
     sh -s -- --default-toolchain nightly -y
@@ -39,15 +50,6 @@ RUN apt-get -y update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install intel-sgx-dkms openjdk-11-jdk
 RUN rustup target add x86_64-fortanix-unknown-sgx --toolchain nightly
 RUN cargo install fortanix-sgx-tools sgxs-tools
-
-RUN mkdir /source
-VOLUME ["/source"]
-WORKDIR /source
-
-RUN mkdir /source/target
-VOLUME ["/source/target"]
-
-VOLUME ["/root/.cargo"]
 
 ENTRYPOINT ["cargo"]
 
