@@ -1,7 +1,5 @@
 FROM ubuntu:xenial
 
-WORKDIR /root
-
 # common packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
