@@ -1,6 +1,6 @@
-# rust-builder-fortenix
-A container for building rust code targeting the Fortenix EDP.
-This is useful if you don't want to install all of the fortenix libraries,
+# rust-builder-fortanix
+A container for building rust code targeting the Fortanix EDP.
+This is useful if you don't want to install all of the fortanix libraries,
 or if you're developing on a non-linux system e.g. MacOs
 
 To Use this image execute the following docker command in the root of your directory
