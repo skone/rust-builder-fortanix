@@ -25,10 +25,6 @@ RUN curl https://www.openssl.org/source/openssl-$SSL_VERSION.tar.gz -O && \
 #    OPENSSL_INCLUDE_DIR=/usr/local/ssl/include \
 #    OPENSSL_STATIC=1
 
-#Set up volumes for source code
-RUN mkdir /source
-RUN mkdir /source/target
-RUN mkdir /root/.cargo
 
 # install toolchain
 RUN curl https://sh.rustup.rs -sSf | \
@@ -43,10 +39,15 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install intel-sgx-dkms openjdk-11-
 RUN rustup target add x86_64-fortanix-unknown-sgx --toolchain nightly
 RUN cargo install fortanix-sgx-tools sgxs-tools
 
+
+#Set up volumes for source code
+RUN mkdir /source
 VOLUME ["/source"]
-VOLUME ["/source/target"]
-VOLUME ["/root/.cargo"]
 
-ENTRYPOINT ["cargo"]
+RUN cat > cargo.sh <<EOF \
+cp -R /source/.cargo/* /root/.cargo/ \
+EOF && \
+chmod +x cargo.sh
 
+ENTRYPOINT ["cargo.sh"]
 #Add logic in to prefetch dependencies and cache the cargo index
