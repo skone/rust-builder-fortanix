@@ -44,10 +44,8 @@ RUN cargo install fortanix-sgx-tools sgxs-tools
 RUN mkdir /source
 VOLUME ["/source"]
 
-RUN cat > cargo.sh <<EOF \
-cp -R /source/.cargo/* /root/.cargo/ \
-EOF && \
-chmod +x cargo.sh
+RUN mkdir /source/target
+VOLUME ["/source/target"]
 
-ENTRYPOINT ["cargo.sh"]
+ENTRYPOINT ["cargo"]
 #Add logic in to prefetch dependencies and cache the cargo index
