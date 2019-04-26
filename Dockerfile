@@ -49,5 +49,4 @@ VOLUME ["/source/target"]
 
 WORKDIR /source
 
-ENTRYPOINT ["cargo"]
 #Add logic in to prefetch dependencies and cache the cargo index
