@@ -48,5 +48,3 @@ RUN mkdir /source/target
 VOLUME ["/source/target"]
 
 WORKDIR /source
-
-#Add logic in to prefetch dependencies and cache the cargo index
